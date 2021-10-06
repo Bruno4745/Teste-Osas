@@ -6,10 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/card.css">
 
-    <title>Document</title>
+    <title>Species</title>
 </head>
-<body onload="getSpecies()">
+<body onload="getSpecies('https://swapi.dev/api/species')">
     <nav id="menu">
         <ul>
             <li><a href="index.html">Planets</a></li>
@@ -21,7 +22,14 @@
         </ul>
     </nav>
 
-    <div id="show-species"></div>
+    <main class="container">
+        <div id="show-species"></div>
+
+        <div class="center">
+            <button class="button-style products-button" onclick="getSpecies()">Carregar mais</button>
+        </div>
+    </main>
+
     <script type="text/javascript" src="js/functions.js"></script>
 </body>
 </html>

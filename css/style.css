@@ -30,3 +30,7 @@
 #menu ul li a:hover {
     background-color: rgb(24, 139, 233);
 }
+
+.center {
+    text-align: center;
+}

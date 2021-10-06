@@ -6,10 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/card.css">
 
-    <title>Document</title>
+    <title>Films</title>
 </head>
-<body onload="getFilm()">
+<body onload="getFilm('https://swapi.dev/api/films')">
     <nav id="menu">
         <ul>
             <li><a href="index.html">Planets</a></li>
@@ -21,7 +22,10 @@
         </ul>
     </nav>
 
-    <div id="show-films"></div>
+    <main class="container">
+        <div id="show-films"></div>
+    </main>
+
     <script type="text/javascript" src="js/functions.js"></script>
 </body>
 </html>
