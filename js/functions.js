@@ -1,15 +1,14 @@
-let listPeoples = "";
-let urlPlanet, urlPeople, urlSpecies, urlStarships, urlVehicles = "";
+let listPlanet = "", listPeoples = "", listSpecies = "", listStarships = "", listVehicles = "", listFilm = "";
+let urlPlanet = "", urlPeople = "", urlSpecies = "", urlStarships = "", urlVehicles = "";
 
 async function getData(url){
     try {
         const response = await fetch(url);
         const data = await response.json();
-        console.log(data.results);
 
         if (data.detail == "Not found") {
             throw new Error('Page not found');
-        }
+        } 
 
         return data;
 
@@ -25,27 +24,31 @@ async function getPlanet(url){
     }
 
     const data = await getData(url);
-    console.log(data);
 
         for(let i=0; i<data.results.length; i++){
-            listPeoples += `<div class="card">
+
+            console.log(data.results[i].residents);
+            let teste = data.results[i].residents.toString().replace("", " ");
+            console.log(teste);
+
+            listPlanet += `<div class="card">
                                 <div class="card-container">
-                                    <p>Nome: ${data.results[i].name}</p>
-                                    <p>Período de rotação: ${data.results[i].rotation_period}</p>
-                                    <p>Período orbital: ${data.results[i].orbital_period}</p>
-                                    <p>Diametro: ${data.results[i].diameter}</p>
-                                    <p>Clima: ${data.results[i].climate}</p>
-                                    <p>Gravidade: ${data.results[i].gravity}</p>
-                                    <p>Terreno: ${data.results[i].terrain}</p>
-                                    <p>Água da superfície: ${data.results[i].surface_water}</p>
-                                    <p>Populacao: ${data.results[i].population}</p>
-                                    <p>Residentes: ${data.results[i].residents}</p>
-                                    <p>Filmes: ${data.results[i].films}</p>
+                                    <p><b>Nome:</b> ${data.results[i].name}</p>
+                                    <p><b>Período de rotação:</b> ${data.results[i].rotation_period}</p>
+                                    <p><b>Período orbital:</b> ${data.results[i].orbital_period}</p>
+                                    <p><b>Diametro:</b> ${data.results[i].diameter}</p>
+                                    <p><b>Clima:</b> ${data.results[i].climate}</p>
+                                    <p><b>Gravidade:</b> ${data.results[i].gravity}</p>
+                                    <p><b>Terreno:</b> ${data.results[i].terrain}</p>
+                                    <p><b>Água da superfície:</b> ${data.results[i].surface_water}</p>
+                                    <p><b>Populacao:</b> ${data.results[i].population}</p>
+                                    <p><b>Residentes:</b> ${data.results[i].residents}</p>
+                                    <p><b>Filmes:</b> ${data.results[i].films}</p>
                                 </div>
                             </div>`;
         }
-
-    document.getElementById("show-planets").innerHTML = listPeoples;
+        
+    document.getElementById("show-planets").innerHTML = listPlanet;
     urlPlanet = `${data.next}`;
 }
 
@@ -56,24 +59,24 @@ async function getPeople(url){
     }
 
     const data = await getData(url);
-    console.log(data.results);
 
         for(let i=0; i<data.results.length; i++){
+
             listPeoples += `<div class="card">
                                 <div class="card-container">
-                                    <p>Nome: ${data.results[i].name}</p>
-                                    <p>Altura: ${data.results[i].height} cm</p>
-                                    <p>Peso: ${data.results[i].mass} Kg</p>
-                                    <p>Cabelo: ${data.results[i].hair_color}</p>
-                                    <p>Skin: ${data.results[i].skin_color}</p>
-                                    <p>Olho: ${data.results[i].eye_color}</p>
-                                    <p>Nascimento: ${data.results[i].birth_year}</p>
-                                    <p>Genero: ${data.results[i].gender}</p>
-                                    <p>Planeta Natal: ${data.results[i].homeworld}</p>
-                                    <p>Filmes: ${data.results[i].films}</p>
-                                    <p>Especies: ${data.results[i].species}</p>
-                                    <p>Veiculos: ${data.results[i].vehicles}</p>
-                                    <p>Naves: ${data.results[i].starships}</p>
+                                    <p><b>Nome:</b> ${data.results[i].name}</p>
+                                    <p><b>Altura:</b> ${data.results[i].height} cm</p>
+                                    <p><b>Peso:</b> ${data.results[i].mass} Kg</p>
+                                    <p><b>Cabelo:</b> ${data.results[i].hair_color}</p>
+                                    <p><b>Pele:</b> ${data.results[i].skin_color}</p>
+                                    <p><b>Olho:</b> ${data.results[i].eye_color}</p>
+                                    <p><b>Nascimento:</b> ${data.results[i].birth_year}</p>
+                                    <p><b>Genero:</b> ${data.results[i].gender}</p>
+                                    <p><b>Planeta Natal:</b> ${data.results[i].homeworld.replace("https://swapi.dev/api/", " ")}</p>
+                                    <p><b>Filmes:</b> ${data.results[i].films}</p>
+                                    <p><b>Especies:</b> ${data.results[i].species}</p>
+                                    <p><b>Veiculos:</b> ${data.results[i].vehicles}</p>
+                                    <p><b>Naves:</b> ${data.results[i].starships}</p>
                                 </div>
                             </div>`;
         }
@@ -85,27 +88,26 @@ async function getPeople(url){
 async function getFilm(url){
 
     const data = await getData(url);
-    console.log(data);
 
         for(let i=0; i<data.results.length; i++){
-            listPeoples += `<div class="card">
+            listFilm += `<div class="card">
                                 <div class="card-container">
-                                    <p>Titulo: ${data.results[i].title}</p>
-                                    <p>Episodio: ${data.results[i].episode_id}</p>
-                                    <p>Resumo: ${data.results[i].opening_crawl}</p>
-                                    <p>Diretor: ${data.results[i].director}</p>
-                                    <p>Produtor: ${data.results[i].producer}</p>
-                                    <p>Lançamento: ${data.results[i].release_date}</p>
-                                    <p>Personagens: ${data.results[i].characters}</p>
-                                    <p>Planetas: ${data.results[i].planets}</p>
-                                    <p>Naves estelares: ${data.results[i].starships}</p>
-                                    <p>Veículos: ${data.results[i].vehicles}</p>
-                                    <p>Species: ${data.results[i].species}</p>
+                                    <p><b>Titulo:</b> ${data.results[i].title}</p>
+                                    <p><b>Episodio:</b> ${data.results[i].episode_id}</p>
+                                    <p><b>Resumo:</b> ${data.results[i].opening_crawl}</p>
+                                    <p><b>Diretor:</b> ${data.results[i].director}</p>
+                                    <p><b>Produtor:</b> ${data.results[i].producer}</p>
+                                    <p><b>Lançamento:</b> ${data.results[i].release_date}</p>
+                                    <p><b>Personagens:</b> ${data.results[i].characters}</p>
+                                    <p><b>Planetas:</b> ${data.results[i].planets}</p>
+                                    <p><b>Naves estelares:</b> ${data.results[i].starships}</p>
+                                    <p><b>Veículos:</b> ${data.results[i].vehicles}</p>
+                                    <p><b>Species:</b> ${data.results[i].species}</p>
                                 </div>
                             </div>`;
         }
 
-    document.getElementById("show-films").innerHTML = listPeoples;
+    document.getElementById("show-films").innerHTML = listFilm;
 }
 
 async function getStarships(url){
@@ -115,31 +117,30 @@ async function getStarships(url){
     }
 
     const data = await getData(url);
-    console.log(data);
 
         for(let i=0; i<data.results.length; i++){
-            listPeoples += `<div class="card">
+            listStarships += `<div class="card">
                                 <div class="card-container">
-                                    <p>Nome: ${data.results[i].name}</p>
-                                    <p>Modelo: ${data.results[i].model}</p>
-                                    <p>Fabricante: ${data.results[i].manufacturer}</p>
-                                    <p>Valor: ${data.results[i].cost_in_credits}</p>
-                                    <p>Tamanho: ${data.results[i].length}</p>
-                                    <p>Velocidade: ${data.results[i].max_atmosphering_speed}</p>
-                                    <p>Equipe Tecnica: ${data.results[i].crew}</p>
-                                    <p>Passageiros: ${data.results[i].passengers}</p>
-                                    <p>Capacidade de carga: ${data.results[i].cargo_capacity}</p>
-                                    <p>Consumíveis: ${data.results[i].consumables}</p>
-                                    <p>Rating: ${data.results[i].hyperdrive_rating}</p>
-                                    <p>MGLT: ${data.results[i].MGLT}</p>
-                                    <p>Classe: ${data.results[i].starship_class}</p>
-                                    <p>Pilotos: ${data.results[i].pilots}</p>
-                                    <p>Filmes: ${data.results[i].films}</p>
+                                    <p><b>Nome:</b> ${data.results[i].name}</p>
+                                    <p><b>Modelo:</b> ${data.results[i].model}</p>
+                                    <p><b>Fabricante:</b> ${data.results[i].manufacturer}</p>
+                                    <p><b>Valor:</b> ${data.results[i].cost_in_credits}</p>
+                                    <p><b>Tamanho:</b> ${data.results[i].length}</p>
+                                    <p><b>Velocidade:</b> ${data.results[i].max_atmosphering_speed}</p>
+                                    <p><b>Equipe Tecnica:</b> ${data.results[i].crew}</p>
+                                    <p><b>Passageiros:</b> ${data.results[i].passengers}</p>
+                                    <p><b>Capacidade de carga:</b> ${data.results[i].cargo_capacity}</p>
+                                    <p><b>Consumíveis:</b> ${data.results[i].consumables}</p>
+                                    <p><b>Rating:</b> ${data.results[i].hyperdrive_rating}</p>
+                                    <p><b>MGLT:</b> ${data.results[i].MGLT}</p>
+                                    <p><b>Classe:</b> ${data.results[i].starship_class}</p>
+                                    <p><b>Pilotos:</b> ${data.results[i].pilots}</p>
+                                    <p><b>Filmes:</b> ${data.results[i].films}</p>
                                 </div>
                             </div>`;
         }
 
-    document.getElementById("show-starships").innerHTML = listPeoples;
+    document.getElementById("show-starships").innerHTML = listStarships;
     urlStarships = `${data.next}`;
 }
 
@@ -150,29 +151,28 @@ async function getVehicles(url){
     }
 
     const data = await getData(url);
-    console.log(data);
 
         for(let i=0; i<data.results.length; i++){
-            listPeoples += `<div class="card">
+            listVehicles += `<div class="card">
                                 <div class="card-container">
-                                <p>Nome: ${data.results[i].name}</p>
-                                <p>Modelo: ${data.results[i].model}</p>
-                                <p>Fabricante: ${data.results[i].manufacturer}</p>
-                                <p>Valor: ${data.results[i].cost_in_credits}</p>
-                                <p>Tamanho: ${data.results[i].length}</p>
-                                <p>Velocidade: ${data.results[i].max_atmosphering_speed}</p>
-                                <p>Equipe Tecnica: ${data.results[i].crew}</p>
-                                <p>Passageiros: ${data.results[i].passengers}</p>
-                                <p>Capacidade de carga: ${data.results[i].cargo_capacity}</p>
-                                <p>Consumíveis: ${data.results[i].consumables}</p>
-                                <p>Classe: ${data.results[i].vehicle_class}</p>
-                                <p>Pilotos: ${data.results[i].pilots}</p>
-                                <p>Filmes: ${data.results[i].films}</p>
+                                <p><b>Nome:</b> ${data.results[i].name}</p>
+                                <p><b>Modelo:</b> ${data.results[i].model}</p>
+                                <p><b>Fabricante:</b> ${data.results[i].manufacturer}</p>
+                                <p><b>Valor:</b> ${data.results[i].cost_in_credits}</p>
+                                <p><b>Tamanho:</b> ${data.results[i].length}</p>
+                                <p><b>Velocidade:</b> ${data.results[i].max_atmosphering_speed}</p>
+                                <p><b>Equipe Tecnica:</b> ${data.results[i].crew}</p>
+                                <p><b>Passageiros:</b> ${data.results[i].passengers}</p>
+                                <p><b>Capacidade de carga:</b> ${data.results[i].cargo_capacity}</p>
+                                <p><b>Consumíveis:</b> ${data.results[i].consumables}</p>
+                                <p><b>Classe:</b> ${data.results[i].vehicle_class}</p>
+                                <p><b>Pilotos:</b> ${data.results[i].pilots}</p>
+                                <p><b>Filmes:</b> ${data.results[i].films}</p>
                                 </div>
                             </div>`;
         }
 
-    document.getElementById("show-vehicles").innerHTML = listPeoples;
+    document.getElementById("show-vehicles").innerHTML = listVehicles;
     urlVehicles = `${data.next}`;
 }
 
@@ -183,27 +183,26 @@ async function getSpecies(url){
     }
 
     const data = await getData(url);
-    console.log(data);
 
         for(let i=0; i<data.results.length; i++){
-            listPeoples += `<div class="card">
+            listSpecies += `<div class="card">
                                 <div class="card-container">
-                                    <p>Nome: ${data.results[i].name}</p>
-                                    <p>Classificação: ${data.results[i].classification}</p>
-                                    <p>Designação: ${data.results[i].designation}</p>
-                                    <p>Altura média: ${data.results[i].average_height}</p>
-                                    <p>skin_colors: ${data.results[i].skin_colors}</p>
-                                    <p>Cabelo: ${data.results[i].hair_colors}</p>
-                                    <p>Olhos: ${data.results[i].eye_colors}</p>
-                                    <p>Vida média: ${data.results[i].average_lifespan}</p>
-                                    <p>Planeta natal: ${data.results[i].homeworld}</p>
-                                    <p>Idioma: ${data.results[i].language}</p>
-                                    <p>Pessoas: ${data.results[i].people}</p>
-                                    <p>Filmes: ${data.results[i].films}</p>
+                                    <p><b>Nome:</b> ${data.results[i].name}</p>
+                                    <p><b>Classificação:</b> ${data.results[i].classification}</p>
+                                    <p><b>Designação:</b> ${data.results[i].designation}</p>
+                                    <p><b>Altura média:</b> ${data.results[i].average_height}</p>
+                                    <p><b>Pele:</b> ${data.results[i].skin_colors}</p>
+                                    <p><b>Cabelo:</b> ${data.results[i].hair_colors}</p>
+                                    <p><b>Olhos:</b> ${data.results[i].eye_colors}</p>
+                                    <p><b>Vida média:</b> ${data.results[i].average_lifespan}</p>
+                                    <p><b>Planeta natal:</b> ${data.results[i].homeworld}</p>
+                                    <p><b>Idioma:</b> ${data.results[i].language}</p>
+                                    <p><b>Pessoas:</b> ${data.results[i].people}</p>
+                                    <p><b>Filmes:</b> ${data.results[i].films}</p>
                                 </div>
                             </div>`;
         }
 
-    document.getElementById("show-species").innerHTML = listPeoples;
+    document.getElementById("show-species").innerHTML = listSpecies;
     urlVehicles = `${data.next}`;
 }
